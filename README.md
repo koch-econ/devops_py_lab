@@ -193,11 +193,10 @@ mkdir template
 
 
 
-```python
-import os
-from IPython.display import IFrame
-IFrame(src="file:/out/slides_obrazec_ver_1.html", width=800, height=600,encoding="utf8")
-```
+
+<IFrame src="file:/out/slides_obrazec_ver_1.html" width="800" height="600">
+</iframe>
+
 
 
 
