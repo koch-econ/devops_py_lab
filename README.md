@@ -48,7 +48,7 @@ git clone https://github.com/koch-econ/devops_py_lab.git mylab
 | py/markdown2output\_ver\_*N*.py     | преобразование в выходной формат (.pptx)                 |
 | pic                                 | файлы картинок                                           |
 | pic/*product_id*.png                | фотография товара с артикулом *product_id*.png           |
-| template                            | шаблоны презентаций                                      |
+| tmpl                                | шаблоны презентаций  в формате Markdown                                    |
 | csv                                 | текстовые файлы данных с разделителем полей `';'`        |
 | csv/wb_dquotes.csv                  | все поля закавычены `"`                                  |
 | csv/wb.csv                          | все текстовые фоля закавычены `"`                        |
@@ -114,12 +114,12 @@ product_id;vendor;model;price;category
 
 
 ```python
-mkdir template
+mkdir tmpl
 ```
 
 
 ```python
-%%file template/category_ver_1.md
+%%file tmpl/category_ver_1.md
 
 ## Техника для кухни
 
@@ -129,12 +129,27 @@ mkdir template
 
 ```
 
-    Writing template/category_ver_1.md
+    Overwriting tmpl/category_ver_1.md
 
 
 
 ```python
-%%file template/slides_ver_1.md
+%%file tmpl/category_ver_4.md
+
+## Техника для кухни
+
+![](pic/{category_name}.jpeg)
+
+* * * 
+
+```
+
+    Writing tmpl/category_ver_4.md
+
+
+
+```python
+%%file tmpl/slides_ver_1.md
 ## мини-печь StarWind
 :::::::::::::: {.columns}
 ::: {.column }
@@ -145,7 +160,7 @@ mkdir template
 :::
 ::: {.column }
 
-![фото товара](13883932.png)
+![фото товара](pic/13883932.png){width=120px}
 :::
 ::::::::::::::
 
@@ -159,12 +174,36 @@ mkdir template
 :::
 ::: {.column }
 
-![фото товара](8483040.png)
+![фото товара](pic/8483040.png){width=120px}
 :::
-::::::::::::::
+::::::::::::::    
+
 ```
 
-    Writing template/slides_ver_1.md
+    Overwriting tmpl/slides_ver_1.md
+
+
+
+```python
+%%file tmpl/slides_ver_2.md
+## {model}
+:::::::::::::: {.columns}
+::: {.column }
+* вендор: {vendor}
+* модель: {model}
+* артикул: {product_id}
+* цена: {price}
+:::
+::: {.column }
+
+![фото товара](pic/{product_id}.png){width=120px}
+:::
+::::::::::::::
+
+* * *    
+```
+
+    Overwriting tmpl/slides_ver_2.md
 
 
 
@@ -172,44 +211,117 @@ mkdir template
 %ls out
 ```
 
-    slides.html                  slides_v2.html
-    slides.md                    slides_v2.md
-    slides.pptx                  slides_v2.pptx
-    slides_obrazec_ver_1.html    slides_ver1.html
-    slides_obrazec_ver_1.pptx    ~$slides_obrazec_ver_1.pptx
+    slides_obrazec_ver_1.html  slides_ver_1.pptx
 
 
 
 ```python
-!pandoc -o out/slides_ver1.pptx  template/category_ver_1.md template/slides_ver_1.md
+!pandoc -o out/slides_obrazec_ver_1.html --self-contained --metadata title="товары WB"   tmpl/category_ver_1.md tmpl/slides_ver_1.md
+```
+
+```sh
+pandoc -o out/slides_obrazec_ver1.html --self-contained --metadata title="товары WB"   template/category_ver_1.md template/slides_ver_1.md
+```
+
+Результат [html](out/slides_obrazec_ver_1.html)
+
+
+```python
+!pandoc -o out/slides_ver_1.pptx  tmpl/category_ver_1.md tmpl/slides_ver_1.md
+```
+
+```sh
+pandoc -o out/slides_ver_1.pptx  template/category_ver_1.md template/slides_ver_1.md
+```
+
+Результат [pptx](out/slides_obrazec_ver_1.pptx)
+
+
+```python
+%ls out
+```
+
+    slides_obrazec_ver1.html  slides_ver_1.pptx
+
+
+## Предполагаемые этапы (версии развития проекта)
+
+###  Версия 1. Генерация pptx по готовым файлам `tmpl/*_ver_1.md'
+
+
+```python
+%%file py/main_ver_1.py
+# import data_source_ver_N as ds
+import markdown2output_ver_1.py  as m2o
+
+
+tmpl_category_file="tmpl/category_ver_1.md"
+tmpl_slides_file="tmpl/slides_ver_1.md"
+
+out_md_file="out/slides_ver_1.md"
+out_pptx_file="out/slides_ver_1.md"
+
+pass # объединить файлы в один в директории out 
+
+m2o.convert_to_pptx(out_md_file, out_pptx_file)  # преобразовать в pptx 
+
+
+```
+
+    Writing py/main_ver_1.py
+
+
+###  Версия 2. Генерация pptx по файлам `tmpl/*_ver_2.md' c подставлением данных из модуля `data_source_ver_2.py`
+
+Пока без титульных слайдов категорий товаров
+
+
+
+###  Версия 3. Генерация pptx по файлам `tmpl/*_ver_3.md' c подставлением данных из словаря discout_dict и списка category_list
+
+
+```python
+
+category_list=["Прочие устройтсва", "Климатическая техника" "Красота и здоровье", "Садовая техника","Техника для дома","Техника для кухни", "Крупная бытовая техника" ]
+
+```
+
+Скидки на все товары этих вендоров
+
+
+```python
+discount_dict={ "Candy":10, "BBK":20 }
 ```
 
 
 ```python
-%ls "out/slides_obrazec_ver_1.html"
+%%file tmpl/slides_ver_3.md
+## {model}
+:::::::::::::: {.columns}
+::: {.column }
+* вендор: {vendor}
+* модель: {model}
+* артикул: {product_id}
+* цена: {price}
+* окончательная цена: ${discounted_price}
+* скидка по акции: ${discout}%
+:::
+::: {.column }
+
+![фото товара](pic/{product_id}.png){width=120px}
+:::
+::::::::::::::
+
+* * * 
+
 ```
 
-    out/slides_obrazec_ver_1.html
+    Writing tmpl/slides_ver_3.md
 
 
+###  Версия 4. Слайды должны быть упорядоченны по названиям категории товаров и дополнены титульными слайдами tmpl/category_ver_4.md
 
-
-<IFrame src="file:/out/slides_obrazec_ver_1.html" width="800" height="600">
-</iframe>
-
-
-
-
-
-
-<iframe
-    width="800"
-    height="600"
-    src="out/slides_obrazec_ver_1.html"
-    frameborder="0"
-    allowfullscreen ></iframe>
-
-
+###  Версия 5. Генераторные функции должны читать данные из csv файла
 
 
 ```python
