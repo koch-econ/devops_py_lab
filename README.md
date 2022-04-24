@@ -205,12 +205,9 @@ mkdir template
 <iframe
     width="800"
     height="600"
-    src="file:/out/slides_obrazec_ver_1.html?encoding=utf8"
+    src="out/slides_obrazec_ver_1.html"
     frameborder="0"
-    allowfullscreen
-
-></iframe>
-
+    allowfullscreen ></iframe>
 
 
 
