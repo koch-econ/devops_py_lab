@@ -438,20 +438,20 @@ category_list=["Прочие устройтсва", "Климатическая 
 
 </div>
 
+<div id="f9fba6b0-a279-4cc6-a843-184c40773e1e" class="cell code"
+execution_count="48">
+
+``` python
+discount_dict={ "Candy":10, "BBK":20 }
+```
+
+</div>
+
 <div id="8ce7e928-8590-49cc-b3f6-d830d2bd6c79" class="cell markdown">
 
 Скидки на все товары этих вендоров
 
 [образец html](out/slides_obrazec_ver_3.html)
-
-</div>
-
-<div id="f9fba6b0-a279-4cc6-a843-184c40773e1e" class="cell code"
-execution_count="47">
-
-``` python
-discount_dict={ "Candy":10, "BBK":20 }
-```
 
 </div>
 
