@@ -493,6 +493,12 @@ execution_count="42">
 
 </div>
 
+<div id="c911f021-1d83-4be9-b9ff-39f4dc8966fe" class="cell markdown">
+
+Используйте lambda-выражения для указания последовательности сортировки
+
+</div>
+
 <div id="5f8267c1-ed29-4a14-9889-3d52f338a172" class="cell markdown">
 
 ### Версия 5. Генераторные функции должны читать данные из csv файла csv/wb.csv
