@@ -11,7 +11,7 @@ def get_products(*args, **kwargs):
     # args and kwargs are for future project development
     # исправьте вызов .split() чтобы получился 
     # список имен столбцов
-    columns="productid;vendor;model;price;category".split(";")
+    columns="productid;vendor;model;price;category".split()
     yield dict(zip(columns,(13883932,"StarWind","Мини-печь smo2003",5597,5)))
     yield dict(zip(columns,(8483040,"BBK","Микроволновая печь соло 20MWS-711M/WS",4173,5)))
     yield dict(zip(columns,(65374769,"ATLANT","Холодильник Минск ХМ 4012 022",30000,6)))
